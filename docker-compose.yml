@@ -1,0 +1,48 @@
+services:
+  nut:
+    image: instantlinux/nut-upsd
+    container_name: nut
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - "3493:3493"
+    volumes:
+      - ./nut:/etc/nut
+      - ./start.sh:/start.sh
+    environment:
+      - NUT_USER=admin
+      - NUT_PASSWORD=adminpass
+#    devices:
+#      - /dev/bus/usb:/dev/bus/usb
+#    command: /bin/sh -c "/usr/sbin/upsmon -D & sh /etc/nut/poll.sh & wait"
+#    command: /bin/sh -c "sh /etc/nut/poll.sh & wait"
+    labels:
+      glance.name: NutUPSd
+      glance.icon: sh:nutupsd
+      glance.id: nut
+#    entrypoint: /start.sh
+  poller:
+#    image: alpine
+#    image: instantlinux/nut-upsd
+    container_name: poller
+    build: ./poller
+    depends_on:
+      - nut
+    volumes:
+      - ./nut:/etc/nut
+    command: /bin/sh -c "sh /etc/nut/poll.sh"
+    labels:
+      glance.name: Poller
+      glance.parent: nut
+
+#  server-manager:
+#    container_name: server-manager
+#    build: ./server-manager
+#    depends_on:
+#      - nut
+#      - poller
+#    volumes:
+#      - ./nut:/etc/nut
+#    labels:
+#      glance.name: Server-Manager
+#      glance.parent: nut
