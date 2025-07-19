@@ -1,0 +1,8 @@
+[monuser]
+    password = monpass
+    upsmon master
+[admin]
+    password = adminpass
+    actions = SET
+    instcmds = ALL
+    upsmon master

@@ -1,0 +1,48 @@
+[
+  {
+    "id": "brainy",
+    "name": "brainy",
+    "ip": "192.168.9.33",
+    "mac": "94:c6:91:18:d7:1d",
+    "ssh_user": "mike",
+    "ssh_key": "/keys/id_rsa",
+    "shutdown_cmd": "sudo /usr/sbin/poweroff"
+  },
+  {
+    "id": "clumsy",
+    "name": "clumsy",
+    "ip": "192.168.9.34",
+    "mac": "94:c6:91:a6:f8:c2",
+    "ssh_user": "mike",
+    "ssh_key": "/keys/id_rsa",
+    "shutdown_cmd": "sudo /usr/sbin/poweroff"
+  },
+  {
+    "id": "hefty",
+    "name": "hefty",
+    "ip": "192.168.9.35",
+    "mac": "1c:69:7a:69:02:63",
+    "ssh_user": "mike",
+    "ssh_key": "/keys/id_rsa",
+    "shutdown_cmd": "sudo /usr/sbin/poweroff"
+  },
+  {
+    "id": "pve1",
+    "name": "pve1",
+    "ip": "192.168.9.7",
+    "mac": "b0:41:6f:0f:23:a7",
+    "ssh_user": "root",
+    "ssh_key": "/keys/id_rsa",
+    "shutdown_cmd": "/usr/sbin/poweroff"
+  },
+  {
+    "id": "backup01",
+    "name": "backup01",
+    "ip": "192.168.9.37",
+    "mac": "00:11:32:58:99:02",
+    "ssh_user": "admin",
+    "ssh_key": "/keys/id_rsa",
+    "shutdown_cmd": "/usr/sbin/poweroff",
+    "custom_shutdown_script": "/volume1/scripts/synology_safe_shutdown.sh"
+  }
+]

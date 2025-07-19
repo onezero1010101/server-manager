@@ -1,0 +1,3 @@
+python manage_servers.py --list
+python manage_servers.py --wake pve1
+python manage_servers.py --shutdown backup01

@@ -1,0 +1,5 @@
+FROM alpine
+RUN apk add --no-cache nut bash
+COPY poll.sh /etc/nut/poll.sh
+RUN chmod +x /etc/nut/poll.sh
+CMD ["sh", "/etc/nut/poll.sh"]
