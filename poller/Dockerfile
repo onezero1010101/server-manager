@@ -22,12 +22,12 @@ RUN pip3 install paramiko wakeonlan
 RUN mkdir -p /etc/nut/thresholds /keys /scripts
 
 # Copy scripts into container
-COPY manage-servers.py /etc/nut/
-COPY servers.json /etc/nut/
-COPY poll.sh /etc/nut/poll.sh
-COPY onbattery_trigger.sh /etc/nut/
-COPY online_trigger.sh /etc/nut/
-COPY thresholds/*.sh /etc/nut/thresholds/
+#COPY manage-servers.py /etc/nut/
+#COPY servers.json /etc/nut/
+#COPY poll.sh /etc/nut/poll.sh
+#COPY onbattery_trigger.sh /etc/nut/
+#COPY online_trigger.sh /etc/nut/
+#COPY thresholds/*.sh /etc/nut/thresholds/
 
 # Make all scripts executable
 RUN chmod +x /etc/nut/*.sh /etc/nut/thresholds/*.sh
