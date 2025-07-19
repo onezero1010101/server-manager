@@ -1,0 +1,26 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main # or your default branch, e.g., master
+  pull_request:
+    branches:
+      - main # or your default branch, e.g., master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build -t poller/server-manager . # Adjust if your Dockerfile is not in the root
+
+    #- name: Run tests inside Docker container
+      # Replace 'your-test-command-here' with the actual command to run your tests inside the container.
+      # For example: docker run server-manager-image npm test
+      # Or: docker run server-manager-image python -m pytest
+      #run: docker run server-manager your-test-command-here
