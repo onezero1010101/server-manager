@@ -42,19 +42,18 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
-        context: . # Adjust if your Dockerfile is not in the root
+        context: ./poller # Adjusted to your specified Dockerfile path
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
-    - name: Run tests inside Docker container (optional - after push or before push)
-      # This step assumes the image is already pushed and available, or built locally.
-      # If you prefer to test the locally built image before pushing, move this step
-      # before the 'Build and push Docker image' step and adjust the image name.
-      # Example: docker run ghcr.io/${{ github.repository }}:latest your-test-command-here
-      # Or, if testing before push: docker run ${{ steps.meta.outputs.tags }} your-test-command-here
-      run: |
-        IMAGE_TAG=${{ steps.meta.outputs.tags }}
-        # If testing after push, you might pull the image first to ensure you're testing what's pushed
-        # docker pull $IMAGE_TAG
-        docker run $IMAGE_TAG your-test-command-here
+    # - name: Run tests inside Docker container
+    #   # Replace 'your-test-command-here' with the actual command to run your tests inside the container.
+    #   # This will run tests on the image that was just built and pushed to GHCR.
+    #   # Example: docker run ghcr.io/${{ github.repository }}:latest npm test
+    #   # Or: docker run ghcr.io/${{ github.repository }}:latest python -m pytest
+    #   run: |
+    #     IMAGE_TAG=${{ steps.meta.outputs.tags }}
+    #     # It's good practice to pull the image you just pushed to ensure you're testing the remote version.
+    #     docker pull $IMAGE_TAG
+    #     docker run $IMAGE_TAG your-test-command-here
