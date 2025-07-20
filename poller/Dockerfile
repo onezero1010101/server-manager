@@ -13,7 +13,8 @@ RUN apk add --no-cache \
     libffi-dev \
     build-base  \
     openssl-dev \
-    python3-dev
+    python3-dev \
+    rust
 
 # Allow pip to install packages system-wide in Alpine
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
