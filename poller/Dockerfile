@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-# Install system dependencies
+# Install system dependencies and build tools
 RUN apk add --no-cache \
     python3 \
     py3-pip \
@@ -10,12 +10,16 @@ RUN apk add --no-cache \
     sudo \
     curl \
     jq \
-    libffi-dev
+    libffi-dev \
+    build-base # <-- Added for compilation tools (e.g., GCC, make)
 
 # Allow pip to install packages system-wide in Alpine
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
-# Install Python packages
+# Upgrade pip, setuptools, and wheel to ensure they are current
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
+
+# Install Python packages (cffi will now have the necessary build tools)
 RUN pip3 install paramiko wakeonlan
 
 # Create directories
@@ -31,7 +35,7 @@ COPY poll.sh /etc/nut/poll.sh
 
 # Make all scripts executable
 #RUN chmod +x /etc/nut/*.sh /etc/nut/thresholds/*.sh
-RUN chmod +x /etc/nut/*.sh 
+RUN chmod +x /etc/nut/*.sh
 
 # Default command to start poll.sh
 CMD ["/bin/bash", "/etc/nut/poll.sh"]
