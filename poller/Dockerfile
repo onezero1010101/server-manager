@@ -11,7 +11,8 @@ RUN apk add --no-cache \
     curl \
     jq \
     libffi-dev \
-    build-base # <-- Added for compilation tools (e.g., GCC, make)
+    build-base  \
+    openssl-dev
 
 # Allow pip to install packages system-wide in Alpine
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
