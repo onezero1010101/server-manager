@@ -1,41 +1,24 @@
-FROM alpine:latest
+FROM python:3.12-slim
 
-# Install system dependencies and build tools
-RUN apk add --no-cache \
-    python3 \
-    py3-pip \
+# Install bash and other tools
+RUN apt-get update && apt-get install -y \
     bash \
     openssh-client \
-    nut \
-    sudo \
     curl \
     jq \
-    libffi-dev \
-    build-base  \
-    openssl-dev \
-    python3-dev \
-    rust
-# after libffi-dev is for arm7 attempts
+    sudo \
+    nut-client \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m ensurepip && \
-    python3 -m pip install --no-cache-dir --upgrade pip setuptools wheel && \
-    python3 -m pip install --no-cache-dir --prefix=/usr/local paramiko wakeonlan
-
+# Install Python packages
+RUN pip install --no-cache-dir paramiko wakeonlan
 
 # Create directories
 RUN mkdir -p /etc/nut/thresholds /keys /scripts
 
-# Copy scripts into container
-#COPY manage-servers.py /etc/nut/
-#COPY servers.json /etc/nut/
+# Copy and set permissions
 COPY poll.sh /etc/nut/poll.sh
-#COPY onbattery_trigger.sh /etc/nut/
-#COPY online_trigger.sh /etc/nut/
-#COPY thresholds/*.sh /etc/nut/thresholds/
-
-# Make all scripts executable
-#RUN chmod +x /etc/nut/*.sh /etc/nut/thresholds/*.sh
 RUN chmod +x /etc/nut/*.sh
 
-# Default command to start poll.sh
+# Set default command
 CMD ["/bin/bash", "/etc/nut/poll.sh"]
