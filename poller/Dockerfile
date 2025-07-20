@@ -15,15 +15,12 @@ RUN apk add --no-cache \
     openssl-dev \
     python3-dev \
     rust
+# after libffi-dev is for arm7 attempts
 
-# Allow pip to install packages system-wide in Alpine
-ENV PIP_BREAK_SYSTEM_PACKAGES=1
+RUN python3 -m ensurepip && \
+    python3 -m pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    python3 -m pip install --no-cache-dir --prefix=/usr/local paramiko wakeonlan
 
-# Upgrade pip, setuptools, and wheel to ensure they are current
-RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
-
-# Install Python packages (cffi will now have the necessary build tools)
-RUN pip3 install paramiko wakeonlan
 
 # Create directories
 RUN mkdir -p /etc/nut/thresholds /keys /scripts
