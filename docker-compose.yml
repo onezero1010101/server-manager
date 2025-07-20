@@ -8,7 +8,8 @@ services:
       - "3493:3493"
     volumes:
       - ./nut:/etc/nut
-      - ./start.sh:/start.sh
+      - /etc/timezone:/etc/timezone:ro
+      #- ./start.sh:/start.sh
     environment:
       - NUT_USER=admin
       - NUT_PASSWORD=adminpass
@@ -25,11 +26,13 @@ services:
 #    image: alpine
 #    image: instantlinux/nut-upsd
     container_name: poller
-    build: ./poller
+    image: ghcr.io/onezero1010101/server-manager
+    #build: ./poller
     depends_on:
       - nut
     volumes:
       - ./nut:/etc/nut
+      - /etc/timezone:/etc/timezone:ro
     command: /bin/sh -c "sh /etc/nut/poll.sh"
     labels:
       glance.name: Poller
