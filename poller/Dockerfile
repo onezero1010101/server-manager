@@ -20,8 +20,8 @@ RUN pip install --no-cache-dir paramiko wakeonlan
 RUN mkdir -p /etc/nut/thresholds /keys /scripts
 
 # Copy your scripts
-COPY poll.sh /etc/nut/poll.sh
-RUN chmod +x /etc/nut/*.sh
+#COPY poll.sh /etc/nut/poll.sh
+#RUN chmod +x /etc/nut/*.sh
 
 # Default command
 CMD ["/bin/bash", "/etc/nut/poll.sh"]
